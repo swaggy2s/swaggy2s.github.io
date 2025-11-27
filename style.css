@@ -1,0 +1,377 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 禁用移动端的双击缩放 */
+* {
+    touch-action: manipulation;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+main {
+    padding: 20px;
+}
+
+.music-container {
+    margin-bottom: 30px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.control-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.control-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.control-btn:active {
+    transform: translateY(-1px);
+}
+
+.control-btn.active {
+    animation: buttonPress 0.2s ease;
+}
+
+.control-btn.playing {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.control-btn.paused {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+.d{
+    height: 6px;
+}
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: height 0.2s ease;
+}
+
+.progress-bar:hover {
+    height: 8px;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    width: 0%;
+    transition: width 0.1s ease;
+    position: relative;
+}
+
+.progress::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: #4facfe;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.progress-bar:hover .progress::after {
+    opacity: 1;
+}
+
+.progress-bar.pulse-effect {
+    animation: pulse 0.3s ease;
+}
+
+.progress-bar.touch-active {
+    animation: touchFeedback 0.2s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes touchFeedback {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.98); }
+    100% { transform: scale(1); }
+}
+
+#current-time, #total-time {
+    font-size: 0.8rem;
+    color: #666;
+    min-width: 40px;
+    text-align: center;
+}
+
+.lyrics-container {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.lyrics-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.lyrics-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.5), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.lyrics {
+    text-align: center;
+    max-height: 160px;
+    overflow-y: hidden;
+    padding: 10px;
+    width: 100%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 确保所有浏览器都隐藏滚动条 */
+.lyrics::-webkit-scrollbar {
+    display: none;
+}
+
+.lyric-item {
+    margin-bottom: 15px;
+    opacity: 0.6;
+    transform: scale(0.9);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    position: relative;
+}
+
+.lyric-item.active {
+    opacity: 1;
+    transform: scale(1.05);
+    font-weight: 500;
+    color: #667eea;
+}
+
+.lyric-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #667eea, transparent);
+    border-radius: 1px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    color: #666;
+    font-size: 0.9rem;
+    border-top: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+footer:hover {
+    background: #e9ecef;
+}
+
+/* 通知提示样式 */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: -300px;
+    background: #333;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-width: 280px;
+    transition: right 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.notification.show {
+    right: 20px;
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.notification::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 移动端优化 */
+@media (max-width: 480px) {
+    .notification {
+        top: auto;
+        bottom: 80px;
+        right: -300px;
+        left: auto;
+        margin: 0 10px;
+        max-width: calc(100vw - 20px);
+    }
+    
+    .notification.show {
+        right: 10px;
+    }
+}
+
+/* 移动端响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        margin: 10px;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    main {
+        padding: 15px;
+    }
+    
+    .lyric-item {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    header {
+        padding: 20px 15px;
+    }
+    
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .control-btn {
+        width: 100%;
+    }
+    
+    .lyrics-container {
+        min-height: 150px;
+    }
+}

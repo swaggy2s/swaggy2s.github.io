@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页标题</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>大标题</h1>
+        </header>
+        
+        <main>
+            <div class="lyrics-container">
+                <div id="lyrics" class="lyrics">
+                    <p class="lyrics-line">111</p>
+                    <p class="lyrics-line">222</p>
+                    <p class="lyrics-line">333</p>
+                    <p class="lyrics-line">444</p>
+                    <p class="lyrics-line">555</p>
+                </div>
+            </div>
+            <div>
+                <div class="d"></div>
+            </div>
+            <div class="music-container">
+                <audio id="music-player" autoplay loop>
+                    <source src="Marry.mp3" type="audio/mpeg">
+                    您的浏览器不支持音频元素。
+                </audio>
+                
+                <div class="controls">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <!-- <span id="current-time">0:00</span>
+                        <span id="total-time">0:00</span> -->
+                    </div>
+                    <button id="play-pause" class="control-btn">暂停</button>
+                </div>
+            </div>
+            
+
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 swaggy2s</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
